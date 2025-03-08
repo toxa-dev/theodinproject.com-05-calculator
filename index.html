@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="./assets/output.css" rel="stylesheet">
+
+    <script src="my-js.js" defer></script>
+    <title>Calculator</title>
+</head>
+<body class="">
+    <main class="min-h-screen flex justify-center items-center">
+        <article class="w-[450px]">
+
+            <section id="display" class="bg-gray-900 text-white rounded-t-xl text-right p-2 pt-8 text-3xl border-b border-solid border-[#878787] font-bold">
+                <p id="expression-input" class="pr-4 pb-2"><span id="first-number"></span><span id="operator"></span><span id="second-number"></span></p>
+                <p id="expression-result" class="pr-4">0</p>
+            </section>
+
+            <section id="buttons" class="buttons bg-gray-900 p-2 rounded-b-xl font-bold">
+                <!-- Orange Buttons -->
+                <button class="btn-ce w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="clear-entry">CE</button>
+                <button class="btn-c w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="clear">C</button>
+                <button class="btn-divide w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="divide">/</button>
+                <button class="btn-multiply w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="multiply">*</button>
+                <button class="btn-subtract w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="subtract">&minus;</button>
+                <button class="btn-add w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="add">&plus;</button>
+                <button class="btn-equals w-full bg-orange-500 text-white py-4 hover:bg-orange-600  hover:shadow-lg transition duration-200 rounded-sm" data-operation="equals">=</button>
+
+                <!-- Gray Buttons -->
+                <button class="btn-7 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="7">7</button>
+                <button class="btn-8 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="8">8</button>
+                <button class="btn-9 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="9">9</button>
+                <button class="btn-4 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="4">4</button>
+                <button class="btn-5 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="5">5</button>
+                <button class="btn-6 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="6">6</button>
+                <button class="btn-1 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="1">1</button>
+                <button class="btn-2 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="2">2</button>
+                <button class="btn-3 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="3">3</button>
+                <button class="btn-0 w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num="0">0</button>
+                <button class="btn-decimal w-full bg-gray-800 text-white py-4 hover:bg-gray-700  hover:shadow-lg transition duration-200 rounded-sm" data-num=".">.</button>
+            </section>
+        </article>
+    </main>
+</body>
+</html>

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
+
+
+
+.buttons {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 
+        ". CE C ."          /* Row 1 */
+        "num-7 num-8 num-9 divide"  /* Row 2 */
+        "num-4 num-5 num-6 multiply" /* Row 3 */
+        "num-1 num-2 num-3 add" /* Row 4 */
+        ". num-0 decimal subtract" /* Row 5 */
+        "equals equals equals ."; /* Row 6 */
+}
+
+/* Assign each button to its grid area */
+.btn-ce { grid-area: CE; }
+.btn-c { grid-area: C; }
+.btn-7 { grid-area: num-7; }
+.btn-8 { grid-area: num-8; }
+.btn-9 { grid-area: num-9; }
+.btn-divide { grid-area: divide; }
+.btn-4 { grid-area: num-4; }
+.btn-5 { grid-area: num-5; }
+.btn-6 { grid-area: num-6; }
+.btn-multiply { grid-area: multiply; }
+.btn-1 { grid-area: num-1; }
+.btn-2 { grid-area: num-2; }
+.btn-3 { grid-area: num-3; }
+.btn-subtract { grid-area: subtract; }
+.btn-0 { grid-area: num-0; }
+.btn-add { grid-area: add; }
+.btn-equals { grid-area: equals; }
+.btn-decimal { grid-area: decimal; } /* <-- Decimal button assigned */
