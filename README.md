@@ -1,5 +1,5 @@
 # Calculator
-This is my solution to the [Calculator project](https://www.theodinproject.com/lessons/foundations-calculator) from The Odin Project.
+This is my solution to the [Calculator project](https://www.theodinproject.com/lessons/foundations-calculator) from **The Odin Project**.
 
 ## Live Demo
 You can check out the live version of the project here:
@@ -13,6 +13,6 @@ You can check out the live version of the project here:
 - Use the calculator with either a mouse or keyboard input.
 
 ## Technologies Used
-- HTML for structure
-- CSS TailWind for styling and layout (Grid layout)
-- JavaScript for functionality
+- **HTML** for structure
+- **CSS TailWind** for styling and layout (Grid layout)
+- **JavaScript** for functionality
