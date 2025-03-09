@@ -53,38 +53,32 @@ function handleInput(target) {
 }
 
 // Handle number input
-function handleNumber(number) {
+function handleNumber(number) {    
+    // Prevent numbers with leading zeros (e.g., 00, 000, etc.)
+    if (number === '0' && num1Global && num1Global.toString()[0] === '0') { return }
+    if (number === '0' && num2Global && num2Global.toString()[0] === '0') { return }
+    
     expressionResult.textContent = ''; // Clear result display
 
+    // the idea is that if there is no operator then user is typing in the first number. but if there is an operator then user is typing in the second number
     if (!operatorGlobal) {
+        // Update first number
         if(firstTimeGlobal) {
-            // Update first number
-            if(number !== '0') {
-                num1Global = num1Global ? num1Global.toString() + number : number;
-                displayFirstNumber.textContent = num1Global;
-            } else {
-                displayFirstNumber.textContent = '';
-                expressionResult.textContent = 0;
-            }
+            // (... && num1Global !== '0') => Need to check this in order to not have number with leading zero, like 034 or 05
+            num1Global = (num1Global && num1Global !== '0') ? num1Global.toString() + number : number;
+            displayFirstNumber.textContent = num1Global;
         } else {
-            if (number !== '0') {
-                displayFirstNumber.textContent = number;
-                displaySecondNumber.textContent = '';
-                displayOperator.textContent = '';
-                num1Global = number;
-                num2Global = null;
-                operator = null;
-                firstTimeGlobal = true;
-            } else {
-                displayFirstNumber.textContent = 0;
-                displaySecondNumber.textContent = '';
-                displayOperator.textContent = '';
-                num1Global = 0;
-            }
+            displayFirstNumber.textContent = number;
+            displaySecondNumber.textContent = '';
+            displayOperator.textContent = '';
+            num1Global = number;
+            num2Global = null;
+            operator = null;
+            firstTimeGlobal = true;
         }
     } else {
         // Update second number
-        num2Global = num2Global ? num2Global.toString() + number : number;
+        num2Global = (num2Global && num2Global !== '0') ? num2Global.toString() + number : number;
         displaySecondNumber.textContent = num2Global;
     }
 }
@@ -168,12 +162,3 @@ function operate(operator, num1, num2) {
     }
     throw new Error(`Unknown operator: ${operator}`);
 }
-
-
-let num1Global = null;
-let num2Global = null;
-let operatorGlobal = null;
-displayFirstNumber.textContent = '';
-displayOperator.textContent = '';
-expressionResult.textContent = '';
-
