@@ -4,12 +4,12 @@ const displaySecondNumber = document.querySelector("#second-number");
 const displayOperator = document.querySelector("#operator");
 const expressionResult = document.querySelector("#expression-result");
 
-let num1 = null;
-let num2 = null;
-let operator = null;
-let firstTime = true;
+let num1Global = null;
+let num2Global = null;
+let operatorGlobal = null;
+let firstTimeGlobal = true;
 
-// Event delegation for button clicks
+// Events
 buttons.addEventListener('click', (e) => handleMouseInput(e));
 document.addEventListener('keydown', (e) => handleKeyboardInput(e));
 
@@ -48,27 +48,20 @@ function handleInput(target) {
     const inputNumber = target.getAttribute('data-num');
     const inputOperation = target.getAttribute('data-operation');
 
-    if (inputOperation === 'clear') {
-        clearCalculator();
-    } else if (inputOperation === 'clear-entry') {
-        clearEntry();
-    } else if (inputNumber) {
-        handleNumberInput(inputNumber);
-    } else if (inputOperation && num1) {
-        handleOperatorInput(inputOperation);
-    }
+    if (inputNumber) handleNumber(inputNumber)
+    else if (inputOperation) handleOperation(inputOperation);
 }
 
 // Handle number input
-function handleNumberInput(number) {
+function handleNumber(number) {
     expressionResult.textContent = ''; // Clear result display
 
-    if (!operator) {
-        if(firstTime) {
+    if (!operatorGlobal) {
+        if(firstTimeGlobal) {
             // Update first number
             if(number !== '0') {
-                num1 = num1 ? num1.toString() + number : number;
-                displayFirstNumber.textContent = num1;
+                num1Global = num1Global ? num1Global.toString() + number : number;
+                displayFirstNumber.textContent = num1Global;
             } else {
                 displayFirstNumber.textContent = '';
                 expressionResult.textContent = 0;
@@ -78,46 +71,48 @@ function handleNumberInput(number) {
                 displayFirstNumber.textContent = number;
                 displaySecondNumber.textContent = '';
                 displayOperator.textContent = '';
-                num1 = number;
-                num2 = null;
+                num1Global = number;
+                num2Global = null;
                 operator = null;
-                firstTime = true;
+                firstTimeGlobal = true;
             } else {
                 displayFirstNumber.textContent = 0;
                 displaySecondNumber.textContent = '';
                 displayOperator.textContent = '';
-                num1 = 0;
+                num1Global = 0;
             }
         }
     } else {
         // Update second number
-        num2 = num2 ? num2.toString() + number : number;
-        displaySecondNumber.textContent = num2;
+        num2Global = num2Global ? num2Global.toString() + number : number;
+        displaySecondNumber.textContent = num2Global;
     }
 }
 
 // Handle operator input
-function handleOperatorInput(operation) {
-    if (operation === 'equals' && num2) {
-        // Calculate result
-        const result = operate(operator, num1, num2);
-        expressionResult.textContent = Math.round(result * 100) / 100; // Round to 2 decimal places
-        num1 = result.toString(); // Set result as the first number for further calculations
-        num2 = null;
-        operator = null;
-        firstTime = false;
-    } else {
-        // Set operator
-        operator = operation;
-        displayOperator.textContent = getOperatorSymbol(operation);
-        if (!firstTime) {
-            displayFirstNumber.textContent = Math.round(num1 * 100) / 100;
+function handleOperation(operation) {
+    if (operation === "clear") return clearCalculator();
+    if (operation === "clear-entry") return clearEntry();
+    if (operation === "equals" && num2Global) return calculateResult();
+    
+    operatorGlobal = operation;
+    displayOperator.textContent = getOperatorSymbol(operation);
 
-            if (!num2) {
-                displaySecondNumber.textContent = '';
-            }
+    if (!firstTimeGlobal) {
+        displayFirstNumber.textContent = Math.round(num1Global * 100) / 100;
+
+        if (!num2Global) {
+            displaySecondNumber.textContent = '';
         }
     }
+}
+
+function calculateResult() {
+    const result = operations[operatorGlobal](+num1Global, +num2Global);
+    expressionResult.textContent = Math.round(result * 100) / 100;
+    num1Global = result.toString();
+    num2Global = operatorGlobal = null;
+    firstTimeGlobal = false;
 }
 
 // Clear the calculator
@@ -126,30 +121,30 @@ function clearCalculator() {
     displaySecondNumber.textContent = '';
     displayOperator.textContent = '';
     expressionResult.textContent = '';
-    num1 = null;
-    num2 = null;
-    operator = null;
-    firstTime = true;
+    num1Global = null;
+    num2Global = null;
+    operatorGlobal = null;
+    firstTimeGlobal = true;
 }
 
 // Clear the current entry
 function clearEntry() {
-    if (firstTime) {
+    if (firstTimeGlobal) {
         displayFirstNumber.textContent = '';
         displayOperator.textContent = '';
-        num1 = null;
-        operator = null;
+        num1Global = null;
+        operatorGlobal = null;
     }
     
     displaySecondNumber.textContent = '';
-    num2 = null;
-    if (!firstTime) {
+    num2Global = null;
+    if (!firstTimeGlobal) {
         displayFirstNumber.textContent = '';
         displayOperator.textContent = '';
         expressionResult.textContent = '';
-        num1 = null;
-        operator = null;
-        firstTime = true;
+        num1Global = null;
+        operatorGlobal = null;
+        firstTimeGlobal = true;
     }
 }
 
@@ -173,4 +168,12 @@ function operate(operator, num1, num2) {
     }
     throw new Error(`Unknown operator: ${operator}`);
 }
+
+
+let num1Global = null;
+let num2Global = null;
+let operatorGlobal = null;
+displayFirstNumber.textContent = '';
+displayOperator.textContent = '';
+expressionResult.textContent = '';
 
