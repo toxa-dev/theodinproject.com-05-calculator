@@ -16,3 +16,5 @@ You can check out the live version of the project here:
 - **HTML** for structure
 - **CSS TailWind** for styling and layout (Grid layout)
 - **JavaScript** for functionality
+
+Thanks to AI assistance
