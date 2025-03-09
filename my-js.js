@@ -10,11 +10,43 @@ let operator = null;
 let firstTime = true;
 
 // Event delegation for button clicks
-buttons.addEventListener('click', (e) => handleMouseAndkeyboard(e, 'mouse'));
+buttons.addEventListener('click', (e) => handleMouseInput(e));
+document.addEventListener('keydown', (e) => handleKeyboardInput(e));
 
-function handleMouseAndkeyboard(e, hardWareInput, button = null) {
-    const inputNumber = hardWareInput === 'mouse' ? e.target.getAttribute('data-num') : button.getAttribute('data-num');
-    const inputOperation = hardWareInput === 'mouse' ? e.target.getAttribute('data-operation') : button.getAttribute('data-operation');
+function handleMouseInput(e) {
+    handleInput(e.target);
+}
+
+function handleKeyboardInput(e) {
+    const keyToButtonMap = {
+        '0': '[data-num="0"]',
+        '1': '[data-num="1"]',
+        '2': '[data-num="2"]',
+        '3': '[data-num="3"]',
+        '4': '[data-num="4"]',
+        '5': '[data-num="5"]',
+        '6': '[data-num="6"]',
+        '7': '[data-num="7"]',
+        '8': '[data-num="8"]',
+        '9': '[data-num="9"]',
+        '.': '[data-num="."]',
+        '+': '[data-operation="add"]',
+        '-': '[data-operation="subtract"]',
+        '*': '[data-operation="multiply"]',
+        '/': '[data-operation="divide"]',
+        'Enter': '[data-operation="equals"]',
+        'Backspace': '[data-operation="clear-entry"]',
+        'Escape': '[data-operation="clear"]',
+    };
+
+    const buttonSelector = keyToButtonMap[e.key];
+    if (buttonSelector) handleInput(document.querySelector(buttonSelector));
+};
+
+
+function handleInput(target) {
+    const inputNumber = target.getAttribute('data-num');
+    const inputOperation = target.getAttribute('data-operation');
 
     if (inputOperation === 'clear') {
         clearCalculator();
@@ -142,35 +174,3 @@ function operate(operator, num1, num2) {
     throw new Error(`Unknown operator: ${operator}`);
 }
 
-document.addEventListener('keydown', (e) => {
-    const key = e.key;
-
-    const keyToButtonMap = {
-        '0': '[data-num="0"]',
-        '1': '[data-num="1"]',
-        '2': '[data-num="2"]',
-        '3': '[data-num="3"]',
-        '4': '[data-num="4"]',
-        '5': '[data-num="5"]',
-        '6': '[data-num="6"]',
-        '7': '[data-num="7"]',
-        '8': '[data-num="8"]',
-        '9': '[data-num="9"]',
-        '.': '[data-num="."]',
-        '+': '[data-operation="add"]',
-        '-': '[data-operation="subtract"]',
-        '*': '[data-operation="multiply"]',
-        '/': '[data-operation="divide"]',
-        'Enter': '[data-operation="equals"]',
-        'Backspace': '[data-operation="clear-entry"]',
-        'Escape': '[data-operation="clear"]',
-    };
-
-    const buttonSelector = keyToButtonMap[key];
-    if (buttonSelector) {
-        const button = document.querySelector(buttonSelector);
-        if (button) {
-            handleMouseAndkeyboard(e, 'keyboard', button)
-        }
-    }
-});
